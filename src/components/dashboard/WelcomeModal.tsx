@@ -274,7 +274,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({ open, onClose, onCom
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 Rates are dynamic and adjust based on supply and demand. When more people want to
-                borrow, rates increase, benefiting suppliers. When there's excess liquidity, rates
+                borrow, rates increase, benefiting suppliers. When there&lsquo;s excess liquidity, rates
                 decrease.
               </Typography>
             </Box>
@@ -366,7 +366,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({ open, onClose, onCom
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 Only invest what you can afford to lose. DeFi protocols carry inherent risks, and
-                past performance doesn't guarantee future results.
+                past performance doesn&lsquo;t guarantee future results.
               </Typography>
             </Box>
           </Box>
@@ -387,7 +387,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({ open, onClose, onCom
               <Star size={40} />
             </Avatar>
             <Typography variant="h4" fontWeight="bold" gutterBottom>
-              You're Ready to Start!
+              You&lsquo;re Ready to Start!
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
               Connect your Stellar wallet and make your first transaction
