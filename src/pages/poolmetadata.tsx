@@ -1,19 +1,20 @@
 import {
-  useBackstop,
-  useBackstopPool,
-  usePool,
-  usePoolMeta,
-  usePoolOracle,
-  useTokenMetadata,
-} from '../hooks/api';
-import {
   BackstopPoolEst,
   PoolEstimate,
   Reserve,
 } from '@blend-capital/blend-sdk';
 import { Box, Typography } from '@mui/material';
-import { toBalance, toCompactAddress, toPercentage } from '../utils/formatter';
+import React from 'react';
 import { TokenIcon } from '../components/common/TokenIcon';
+import {
+  useBackstop,
+  useBackstopPool,
+  usePool,
+  usePoolMeta,
+  usePoolOracle,
+  useTokenMetadataList
+} from '../hooks/api';
+import { toBalance, toCompactAddress, toPercentage } from '../utils/formatter';
 
 const SimpleMarketCard: React.FC = () => {
   const poolId = 'CCLBPEYS3XFK65MYYXSBMOGKUI4ODN5S7SUZBGD7NALUQF64QILLX5B5';
@@ -84,9 +85,11 @@ interface AssetListWithMetadataProps {
   reserves: Map<string, Reserve>;
 }
 
-export const AssetListWithMetadata: React.FC<AssetListWithMetadataProps> = ({ reserves }) => {
+export const AssetListWithMetadata: React.FC<AssetListWithMetadataProps> = ({ reserves }: AssetListWithMetadataProps) => {
   // const theme = useTheme();
-  const reserveArray = Array.from(reserves.values());
+  const reserveArray: Reserve[] = Array.from(reserves.values());
+  const assetIds: string[] = reserveArray.map((reserve) => reserve.assetId);
+  const metadataList = useTokenMetadataList(assetIds);
 
   return (
     <Box mt={2}>
@@ -95,8 +98,8 @@ export const AssetListWithMetadata: React.FC<AssetListWithMetadataProps> = ({ re
       </Typography>
 
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        {reserveArray.map((reserve) => {
-          const { data: metadata } = useTokenMetadata(reserve.assetId);
+        {reserveArray.map((reserve, idx) => {
+          const { data: metadata } = metadataList[idx] || {};
 
           const collateralFactor = toPercentage(reserve.config.c_factor / 1e7);
           const liabilityFactor = toPercentage(1 / (reserve.config.l_factor / 1e7));
