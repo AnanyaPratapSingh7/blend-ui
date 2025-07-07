@@ -4,7 +4,6 @@ import {
   Reserve,
 } from '@blend-capital/blend-sdk';
 import { Box, Typography } from '@mui/material';
-import React from 'react';
 import { TokenIcon } from '../components/common/TokenIcon';
 import {
   useBackstop,
@@ -16,7 +15,7 @@ import {
 } from '../hooks/api';
 import { toBalance, toCompactAddress, toPercentage } from '../utils/formatter';
 
-const SimpleMarketCard: React.FC = () => {
+const SimpleMarketCard = (): JSX.Element => {
   const poolId = 'CCLBPEYS3XFK65MYYXSBMOGKUI4ODN5S7SUZBGD7NALUQF64QILLX5B5';
 
   const { data: poolMeta } = usePoolMeta(poolId);
@@ -85,7 +84,7 @@ interface AssetListWithMetadataProps {
   reserves: Map<string, Reserve>;
 }
 
-export const AssetListWithMetadata: React.FC<AssetListWithMetadataProps> = ({ reserves }: AssetListWithMetadataProps) => {
+export const AssetListWithMetadata = ({ reserves }: AssetListWithMetadataProps): JSX.Element => {
   // const theme = useTheme();
   const reserveArray: Reserve[] = Array.from(reserves.values());
   const assetIds: string[] = reserveArray.map((reserve) => reserve.assetId);
@@ -123,7 +122,7 @@ export const AssetListWithMetadata: React.FC<AssetListWithMetadataProps> = ({ re
                 <TokenIcon reserve={reserve} height="24px" width="24px" />
                 <Box>
                   <Typography variant="body1">
-                    {metadata?.symbol ?? reserve.symbol}
+                    {metadata?.symbol ?? toCompactAddress(reserve.assetId)}
                   </Typography>
                   <Typography variant="caption" color="text.secondary">
                     {domain}
